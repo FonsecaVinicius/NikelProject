@@ -10,7 +10,7 @@ document.getElementById("login-form").addEventListener("submit", function(e) {
 
     const email = document.getElementById("email-input").value;
     const password = document.getElementById("password-input").value;
-    const CheckSession = document.getElementById("session-check").checked;
+    const checkSession = document.getElementById("session-check").checked;
 
     const account = getAccount(email);
 
@@ -19,68 +19,30 @@ document.getElementById("login-form").addEventListener("submit", function(e) {
         return;
     }
 
-    if(account) {
-        if(account.password !== password) {
-            alert("Oops! Verifique o usuário ou a senha.");
-            return;
-        }
-
-        saveSession(email, CheckSession);
-
-    
-        window.location.href = "home.html";
-
+    if(account.password !== password) {
+        alert("Oops! Verifique o usuário ou a senha.");
+        return;
     }
 
- 
 
+    saveSession(email, checkSession);
 
-
-
+    window.location.href = "home.html";
 });
 
-//CRIAR CONTA
-document.getElementById("create-form").addEventListener("submit", function(e) {
-    e.preventDefault();
-  
-    const email = document.getElementById("email-create-input").value;
-    const password = document.getElementById("password-create-input").value;
-  
-    if(email.length <5) {
-        alert("Preencha o campo com um e-mail válido.");
-        return;
-    }
-
-    if(password.lenght <4) {
-        alert("Preencha uma senha com no mínimo 4 dígitos.");
-        return;
-    }
-
-    saveAccount({
-        login: email,
-        password: password,
-        transactions: []
-    });
-
-    myModal.hide();
-
-    alert("Conta criada com sucesso!");
-  });
-  
-
-  function checkLogged() {
+function checkLogged() {
     if(session) {
-        sessionStorage.setItem("Logged", session);
+        sessionStorage.setItem("logged", session);
         logged = session;
     }
 
-        if(logged) {
-            saveSession(Logged, session)
+    if(logged) {
+        saveSession(logged, session);
 
-            window.location.href = "Home.html";
-        }
- 
+        window.location.href = "Home.html";
     }
+}
+
 
 
 
@@ -95,7 +57,7 @@ function saveSession(data, saveSession) {
         localStorage.setItem("session", data);
     }
 
-    sessionStorage.setItem ("Logged", data);
+    sessionStorage.setItem ("logged", data);
 }
 
 
